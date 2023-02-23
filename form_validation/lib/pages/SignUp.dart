@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:form_validation/controllers/auth/SingUpController.dart';
+import 'package:get/get.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -22,6 +24,12 @@ class _SignUpPageState extends State<SignUpPage> {
   bool focusedConfirmPassword = false;
   Color _focusedColor = Color.fromRGBO(56, 48, 77, 1);
   Color _unFocusedText = Colors.grey;
+
+  String name = '';
+  String phone = '';
+  String email = '';
+  String password = '';
+  String confirmPass = '';
 
   @override
   void initState() {
@@ -99,6 +107,9 @@ class _SignUpPageState extends State<SignUpPage> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(SingUpController());
+    final _formKey = GlobalKey<FormState>();
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Color.fromRGBO(33, 27, 49, 1),
@@ -135,164 +146,221 @@ class _SignUpPageState extends State<SignUpPage> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextFormField(
-                    focusNode: myFocusName,
-                    autofocus: true,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    decoration: InputDecoration(
-                      labelText: 'Full Name',
-                      labelStyle: TextStyle(color: _unFocusedText),
-                      prefixIcon: Icon(
-                        Icons.person,
-                        color: focusedName ? Colors.white : _unFocusedText,
-                        size: 25,
-                      ),
-                      filled: focusedName,
-                      fillColor: _focusedColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    focusNode: myFocusPhone,
-                    autofocus: false,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    decoration: InputDecoration(
-                      labelText: 'Phone',
-                      labelStyle: TextStyle(color: _unFocusedText),
-                      prefixIcon: Icon(
-                        Icons.phone_android,
-                        color: focusedPhone ? Colors.white : _unFocusedText,
-                        size: 25,
-                      ),
-                      filled: focusedPhone,
-                      fillColor: _focusedColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    focusNode: myFocusEmail,
-                    autofocus: false,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    decoration: InputDecoration(
-                      labelText: 'Email',
-                      labelStyle: TextStyle(color: _unFocusedText),
-                      prefixIcon: Icon(
-                        Icons.mail,
-                        color: focusedEmail ? Colors.white : _unFocusedText,
-                        size: 25,
-                      ),
-                      filled: focusedEmail,
-                      fillColor: _focusedColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    focusNode: myFocusPassword,
-                    autofocus: false,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      labelStyle: TextStyle(color: _unFocusedText),
-                      prefixIcon: Icon(
-                        Icons.password,
-                        color: focusedPassword ? Colors.white : _unFocusedText,
-                        size: 25,
-                      ),
-                      filled: focusedPassword,
-                      fillColor: _focusedColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  TextFormField(
-                    focusNode: myFocusConfirmPassword,
-                    autofocus: false,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                    decoration: InputDecoration(
-                      labelText: 'Confirm Password',
-                      labelStyle: TextStyle(color: _unFocusedText),
-                      prefixIcon: Icon(
-                        Icons.password,
-                        color: focusedConfirmPassword
-                            ? Colors.white
-                            : _unFocusedText,
-                        size: 25,
-                      ),
-                      filled: focusedConfirmPassword,
-                      fillColor: _focusedColor,
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide.none,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Center(
-                    child: Column(children: [
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(30.0)),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 70, vertical: 15),
-                            backgroundColor: Color.fromRGBO(13, 245, 227, 1)),
-                        onPressed: () {},
-                        child: Text(
-                          "Sign Up",
-                          style: TextStyle(
-                            fontSize: 18,
-                            color: Color.fromRGBO(33, 27, 49, 1),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            "Already have a account ? ",
-                            style:
-                                TextStyle(fontSize: 16, color: _unFocusedText),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                name = value;
+                              });
+                            },
+                            focusNode: myFocusName,
+                            autofocus: true,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'Full Name',
+                              labelStyle: TextStyle(color: _unFocusedText),
+                              prefixIcon: Icon(
+                                Icons.person,
+                                color:
+                                    focusedName ? Colors.white : _unFocusedText,
+                                size: 25,
+                              ),
+                              filled: focusedName,
+                              fillColor: _focusedColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
                           ),
                           SizedBox(
-                            width: 2,
+                            height: 10,
                           ),
-                          GestureDetector(
-                            onTap: () => {Navigator.pop(context)},
-                            child: Text("Sign In",
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                phone = value;
+                              });
+                            },
+                            controller: controller.phone,
+                            focusNode: myFocusPhone,
+                            autofocus: false,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'Phone',
+                              labelStyle: TextStyle(color: _unFocusedText),
+                              prefixIcon: Icon(
+                                Icons.phone_android,
+                                color: focusedPhone
+                                    ? Colors.white
+                                    : _unFocusedText,
+                                size: 25,
+                              ),
+                              filled: focusedPhone,
+                              fillColor: _focusedColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                email = value;
+                              });
+                            },
+                            controller: controller.email,
+                            focusNode: myFocusEmail,
+                            autofocus: false,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'Email',
+                              labelStyle: TextStyle(color: _unFocusedText),
+                              prefixIcon: Icon(
+                                Icons.mail,
+                                color: focusedEmail
+                                    ? Colors.white
+                                    : _unFocusedText,
+                                size: 25,
+                              ),
+                              filled: focusedEmail,
+                              fillColor: _focusedColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                password = value;
+                              });
+                            },
+                            controller: controller.password,
+                            focusNode: myFocusPassword,
+                            autofocus: false,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'Password',
+                              labelStyle: TextStyle(color: _unFocusedText),
+                              prefixIcon: Icon(
+                                Icons.password,
+                                color: focusedPassword
+                                    ? Colors.white
+                                    : _unFocusedText,
+                                size: 25,
+                              ),
+                              filled: focusedPassword,
+                              fillColor: _focusedColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          TextFormField(
+                            onChanged: (value) {
+                              setState(() {
+                                confirmPass = value;
+                              });
+                            },
+                            controller: controller.confirmPassword,
+                            focusNode: myFocusConfirmPassword,
+                            autofocus: false,
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                            decoration: InputDecoration(
+                              labelText: 'Confirm Password',
+                              labelStyle: TextStyle(color: _unFocusedText),
+                              prefixIcon: Icon(
+                                Icons.password,
+                                color: focusedConfirmPassword
+                                    ? Colors.white
+                                    : _unFocusedText,
+                                size: 25,
+                              ),
+                              filled: focusedConfirmPassword,
+                              fillColor: _focusedColor,
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide.none,
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 30,
+                          ),
+                          Center(
+                              child: Column(
+                            children: [
+                              ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(30.0)),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 70, vertical: 15),
+                                    backgroundColor:
+                                        Color.fromRGBO(13, 245, 227, 1)),
+                                onPressed: () {
+                                  if (password == confirmPass) {
+                                    SingUpController.instance.registerUser(
+                                      name.trim(),
+                                      password.trim(),
+                                      confirmPass.trim(),
+                                      phone.trim(),
+                                      email.trim(),
+                                    );
+                                  }
+                                },
+                                child: Text(
+                                  "Sign Up",
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Color.fromRGBO(33, 27, 49, 1),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )),
+                          SizedBox(height: 10),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Already have a account ? ",
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Color.fromRGBO(13, 245, 227, 1))),
+                                    fontSize: 16, color: _unFocusedText),
+                              ),
+                              SizedBox(
+                                width: 2,
+                              ),
+                              GestureDetector(
+                                onTap: () => {Navigator.pop(context)},
+                                child: Text("Sign In",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color:
+                                            Color.fromRGBO(13, 245, 227, 1))),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ]),
+                        ]),
                   )
                 ]),
           ),

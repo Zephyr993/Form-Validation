@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
               ),
             ),
             Text(
-              "Please fill the input below",
+              "Enter your details",
               style: TextStyle(color: Colors.grey, fontSize: 16),
             ),
             SizedBox(
