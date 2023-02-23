@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:form_validation/pages/LoginPage.dart';
 import 'package:form_validation/pages/SignUp.dart';
 
 void main() {
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         fontFamily: "Poppins",
       ),
       debugShowCheckedModeBanner: false,
-      home: SignUpPage(),
+      home: LoginPage(),
     );
   }
 }

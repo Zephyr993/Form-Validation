@@ -114,7 +114,9 @@ class _SignUpPageState extends State<SignUpPage> {
                   IconButton(
                       icon: Icon(Icons.keyboard_backspace,
                           size: 35, color: Color.fromRGBO(143, 141, 147, 1)),
-                      onPressed: () {}),
+                      onPressed: () {
+                        Navigator.pop(context);
+                      }),
                   SizedBox(
                     height: 10,
                   ),
@@ -280,11 +282,14 @@ class _SignUpPageState extends State<SignUpPage> {
                           SizedBox(
                             width: 2,
                           ),
-                          Text("Sign In",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                  color: Color.fromRGBO(13, 245, 227, 1))),
+                          GestureDetector(
+                            onTap: () => {Navigator.pop(context)},
+                            child: Text("Sign In",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 16,
+                                    color: Color.fromRGBO(13, 245, 227, 1))),
+                          ),
                         ],
                       ),
                     ]),
