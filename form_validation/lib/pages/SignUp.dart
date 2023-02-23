@@ -122,6 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
                     "Create Account",
                     style: TextStyle(
                         fontSize: 30,
+                        fontWeight: FontWeight.bold,
                         color: Colors.white,
                         fontFamily: "Poppins"),
                   ),
